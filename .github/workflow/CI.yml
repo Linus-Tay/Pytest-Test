@@ -1,9 +1,14 @@
-name: Build
+name: CI for HelloWorld
 
 on:
   push:
     branches:
       - master
 
-# Where will they run
 jobs:
+  build:
+      name: 
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@v2
