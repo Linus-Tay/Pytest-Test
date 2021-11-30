@@ -31,14 +31,31 @@ jobs:
             repository: lowkh2/DevOpsQARepo
             path: tests
             token: ${{ secrets.QA_REMOTE }}
+
+
+        - name: Linter Check with flake8
+          run: |
+            flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+            flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics 
             
         - name: Run Unit Tests
           run: |
             mv ./tests/*.* ./
-            pytest --cov
+            pytest --cov -v --junitxml=report.xml
+
+        - if: ${{ failure() }}
+          name: Create Issues
+          uses: nashmaniac/create-issue-action@v1.1
+          with: 
+            title: Build Failed
+            token: ${{ secrets.GITHUB_TOKEN }}
+            assignees: ${{ github.actor }}
+            labels: workflow-failed
+            body: Workflow failed for commit ${{ github.sha }} @ ${{ github.actor }}
 
         - name: Publish Unit Test Results
           uses: EnricoMi/publish-unit-test-result-action@v1
           if: always()
           with:
-            files: test-results/**/*.xml
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            files: report.xml
