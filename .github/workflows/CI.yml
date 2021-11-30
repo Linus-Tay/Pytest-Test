@@ -53,7 +53,7 @@ jobs:
             labels: workflow-failed
             body: Workflow failed for commit ${{ github.sha }} @ ${{ github.actor }}
 
-        - name: Publish Unit Test Results
+        - name: Publish Unit Test Result
           uses: EnricoMi/publish-unit-test-result-action@v1
           if: always()
           with:
