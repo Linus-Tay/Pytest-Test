@@ -32,7 +32,7 @@ jobs:
             path: tests
             token: ${{ secrets.QA_REMOTE }}
             
-        - name: Run Unit Tests
+        - name: Run Unit Test
           run: |
             mv ./tests/*.* ./
             pytest --cov
