@@ -20,7 +20,7 @@ jobs:
     - name: Checkout Own Repo to cloud
       uses: actions/checkout@v2.4.0
       with: 
-        repository: lowkh/HelloWorldDemoT01
+        repository: Linus-Tay/Pytest-Test
     
     - name: Checkout private repo remotely
       uses: actions/checkout@v2
